@@ -6,7 +6,7 @@ import authRouter from "./routes/auth.route.js"
 mongoose.connect("mongodb+srv://Rishit164:rhu78743@real-estate.abdbenm.mongodb.net/?retryWrites=true&w=majority&appName=Real-Estate").then(()=>{
     console.log("connected");
 })
-.catch(()=>{
+.catch((err)=>{
     console.log(err);
 });
 const app = express();
