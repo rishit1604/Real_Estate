@@ -2,6 +2,7 @@ import User from '../models/user.model.js';
 import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
 import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
 
 
 export const signup = async (req,res,next) =>{
@@ -20,7 +21,7 @@ export const signup = async (req,res,next) =>{
 };
 
 export const signin = async(req,res,next) =>{
-
+  console.log(req.body);
     try{
         const {email,password} = req.body;
          
@@ -37,6 +38,7 @@ export const signin = async(req,res,next) =>{
         const token = jwt.sign({id: validUser._id},'first_token');
         const {password:pass,...rest} = validUser._doc;
         res.cookie('access_token',token,{httpOnly:true}).status(200).json(rest);
+        
 
     }
     catch(error){
@@ -45,6 +47,7 @@ export const signin = async(req,res,next) =>{
 };
 
  export const google = async (req, res, next) => {
+
   try {
      
     const user = await User.findOne({ email: req.body.email });
@@ -53,10 +56,12 @@ export const signin = async(req,res,next) =>{
          
       const token = jwt.sign({ id: user._id }, 'first_token');
       const { password: pass, ...rest } = user._doc;
-      return res
+
+      res
         .cookie('access_token', token, { httpOnly: true })
         .status(200)
         .json(rest);
+        console.log(access_token);
          
     } else {
          
@@ -77,13 +82,14 @@ export const signin = async(req,res,next) =>{
 
       const token = jwt.sign({ id: newUser._id }, 'first_token');
       const { password: pass, ...rest } = newUser._doc;
-      return res
+      res
         .cookie('access_token', token, { httpOnly: true })
         .status(200)
         .json(rest);
+        console.log(access_token);
     }
   } catch (error) {
-    console.error('Error in Google OAuth backend:', error);
+    //console.error('Error in Google OAuth backend:', error);
     next(error);
   }
 };
