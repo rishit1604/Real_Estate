@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js"
 import cookieParser from "cookie-parser";
+import listingRouter from "./routes/listing.route.js";
  
 
 mongoose.connect("mongodb+srv://Rishit164:rhu78743@real-estate.abdbenm.mongodb.net/?retryWrites=true&w=majority&appName=Real-Estate").then(()=>{
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/backend/user',userRouter);
 app.use('/backend/auth',authRouter);
+app.use('/backend/listing',listingRouter);
 
 
 app.use((err,req,res,next)=>{
