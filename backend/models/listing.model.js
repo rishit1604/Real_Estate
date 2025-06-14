@@ -10,7 +10,7 @@ const listingSchema = new mongoose.Schema({
         required: true,
     },
     address: {
-        type: Number,
+        type: String,
         required: true,
     },
     regularPrice: {
@@ -33,7 +33,7 @@ const listingSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
     },
-    parkings: {
+    parking: {
         type: Boolean,
         required: true,
     },
