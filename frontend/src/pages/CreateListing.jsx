@@ -114,18 +114,16 @@ export default function CreateListing() {
 
    const handleSubmit = async (e) => {
         e.preventDefault();
+        if(formData.imageUrls.length === 0) {
+              setError('You must upload at least one image');
+              return;
+          }
+
+          if(formData.regularPrice < formData.discountedPrice) {
+              setError('Regular price must be greater than discounted price');
+              return ;
+          }
         try {
-            if(formData.imageUrls.length === 0) {
-                setError('You must upload at least one image');
-                return;
-            }
-
-            if(formData.regularPrice < formData.discountedPrice) {
-                setError('Regular price must be greater than discounted price');
-                return ;
-            }
-
-
             setLoading(true);
             setError(false);
             const res = await fetch('/backend/listing/create', {
@@ -155,7 +153,7 @@ export default function CreateListing() {
      
    }
    
-
+   //console.log(formData);
   return (
     <main className='p-3 max-w-4xl mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>
@@ -169,7 +167,7 @@ export default function CreateListing() {
             className='border p-3 rounded-lg'
             id='name'
             maxLength='62'
-            minLength='10'
+            minLength='4'
             required
             onChange={handleChange}
             value={formData.name}
